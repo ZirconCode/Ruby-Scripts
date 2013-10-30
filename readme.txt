@@ -2,8 +2,9 @@
 
 My Playground;
 
-A collection of smaller ruby scripts which don't yet warrant their own repository.
-Here I explore ideas I find fun / interesting. Also plausability tests / unfinished implementations, etc...
+Smaller ruby scripts which don't need their own repository.
+Here I explore ideas I find fun / interesting. 
+Also plausability tests / unfinished implementations, etc...
 
 Feel free to play around, discover, contribute =)
 
