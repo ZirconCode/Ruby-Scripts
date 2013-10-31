@@ -3,7 +3,6 @@
 # Makes poetry from random plagiarization
 # "The best artists steal"
 
-
 # example output:
 
 # Ruby
@@ -18,6 +17,10 @@
 # so much, parts of speech, syllable count, iambic pentameter and call it shakespeare v2 ;)
 # different rhymes, rhythm, patterns, stansas, entire poetry books, insanity
 # or make it cite it's source in MLA format
+
+
+# Script by ZirconCode
+
 
 require 'nokogiri'
 require 'open-uri'
