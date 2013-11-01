@@ -17,13 +17,20 @@ require 'pp'
 $dimensions = 2
 $dimensions_size = 100
 
-$rand = Random.new(240312) # <3
+$rand = Random.new(240312) # =)
 
 class Location
 
-	def initialize()
+	def initialize(array)
+		@coordinates = array
+
+		randomize if @coordinates == nil
+	end
+
+	def randomize
 		@coordinates = []
-		$dimensions.times {@coordinates << 1}
+		# should later use $world.upper_location
+		$dimensions.times{@coordinates << $rand.rand($dimensions_size)}
 	end
 
 	def distance(loc2)
@@ -36,8 +43,8 @@ end
 class World
 
 	def initialize()
-		@lower_location = [0]*$dimensions
-		@upper_location = [$dimensions_size]*$dimensions
+		@lower_location = Location.new([0]*$dimensions)
+		@upper_location = Location.new([$dimensions_size]*$dimensions)
 	end
 
 	attr_accessor :lower_location, :upper_location
@@ -47,13 +54,14 @@ $world = World.new
 class Neuron
 
 	def initialize()
-		@location = []
-		# should later use $world.upper_location
-		$dimensions.times{@location << $rand.rand($dimensions_size)}
+		@location = Location.new nil
+		@axon_location = Location.new nil #within range pls?...
+		# dendrites...? or just radius+location?
+
 		@potential = 0
 	end
 
-	attr_reader :location, :potential
+	attr_reader :location, :axon_location, :potential
 end
 
 class Network
@@ -78,3 +86,4 @@ network = Network.new(5)
 pp network
 
 puts 'Done'
+
