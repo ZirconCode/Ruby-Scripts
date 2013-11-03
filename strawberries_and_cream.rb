@@ -17,6 +17,8 @@ require 'pp'
 $dimensions = 2
 $dimensions_size = 100
 
+$neuron_potential_loss = 0.1
+
 $rand = Random.new(240312) # =)
 
 class Location
@@ -34,7 +36,13 @@ class Location
 	end
 
 	def distance(loc2)
+		Location.distance(self,loc2)
+	end
 
+	def self.distance(loc1,loc2)
+		sum = 0
+		$dimensions.times{|i| sum = sum+((loc2.coordinates[i]-loc1.coordinates[i])**2)}
+		Math.sqrt(sum)
 	end
 
 	attr_reader :coordinates
@@ -59,6 +67,13 @@ class Neuron
 		# dendrites...? or just radius+location?
 
 		@potential = 0
+	end
+
+	def tick()
+		@potential = @potential-$neuron_potential_loss if @potential>0
+		@potential = 0 if @potential<0
+
+		# TODO, fire, influence, signals
 	end
 
 	attr_reader :location, :axon_location, :potential
