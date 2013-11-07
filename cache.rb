@@ -1,16 +1,20 @@
 
 
+require 'nokogiri' #sigh~
+require 'open-uri'
+
 module Cache
+
+	# TODO, loading saving refresh times and stuff
 
 	Cache = Hash.new
 
 	def self.c(url)
-		if !Cache[:site]
-			doc = Nokogiri::HTML(open(url))
-			Cache[:site] = doc
+		if !Cache.key? url.to_sym
+			Cache[url.to_sym] = Nokogiri::HTML(open(url))
 		end
 
-		Cache[:site]
+		Cache[url.to_sym]
 	end
 
 	def self.save_cache

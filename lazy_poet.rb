@@ -22,8 +22,7 @@
 # Script by ZirconCode
 
 
-require 'nokogiri'
-require 'open-uri'
+
 require 'tactful_tokenizer'
 
 

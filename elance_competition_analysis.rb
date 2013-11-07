@@ -3,8 +3,7 @@
 
 # by ZirconCode
 
-require 'nokogiri'
-require 'open-uri'
+
 require 'pp'
 
 require_relative 'cache.rb'
