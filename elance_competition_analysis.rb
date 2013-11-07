@@ -7,23 +7,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'pp'
 
-$Cache = Hash.new
-def cache(url)
-	if !$Cache[:site]
-		doc = Nokogiri::HTML(open(url))
-		$Cache[:site] = doc
-	end
-
-	$Cache[:site]
-end
-
-def save_cache
-	# json stuff
-end
-
-def load_cache
-	# json stuff
-end
+require_relative 'cache.rb'
 
 
 def clean(string)
@@ -34,7 +18,7 @@ def get_person(slug)
 
 	person = Hash.new
 	url = 'https://www.elance.com/s/'+slug
-	doc = cache(url)
+	doc = Cache.c(url)
 
 	person[:slug] = slug
 	person[:name] = doc.xpath("//*[@id='p-title']/text()").text.strip
