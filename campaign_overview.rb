@@ -16,7 +16,7 @@ $deviantart_link = 'http://xinamadden.deviantart.com/'
 require_relative 'cache.rb'
 require 'pp'
 
-# nokogiri .text scrape
+# nokogiri xpath .text scrape
 def ns(doc,identifier)
 	doc.xpath(identifier).text
 end
