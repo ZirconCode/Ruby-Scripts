@@ -6,22 +6,37 @@
 
 # / ZirconCode
 
+require 'nokogiri'
+require 'open-uri'
+require 'watir-webdriver'
+require 'headless' # needs xvfb installed
+require 'json' # yeah?
+
+
 class Scraper
 
-	@web_access = :headless # or :openuri, etc..
+	@access_type = :headless # or :openuri, etc..
 
-	def initialize(scrape_type)
-		@web_access = scrape_type if scrape_type
+	def initialize(scrape_type=:headless)
+		@access_type = scrape_type
 	end
 	
 
-
 	def start()
 		# start headless
+		if(@access_type == :headless)
+			@headless = Headless.new
+			headless.start
+			@browser = Watir::Browser.new
+		end
 	end
 	
 	def stop()
 		# end headless/close stuff
+		if(@access_type == :headless)
+			@browser.close
+			@headless.destroy
+		end
 	end
 	
 	
@@ -43,5 +58,9 @@ class Scraper
 	
 
 end
+
+
+s = Scraper.new
+puts "test"
 
 
