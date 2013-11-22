@@ -1,6 +1,8 @@
 
 # Agile Scraper
 
+# NOTE: This script is now a gem at https://github.com/ZirconCode/Scrapah
+
 # uses simple caching, different methods of access, timeouts/error management, etc...
 # will expand to gem perhaps
 
