@@ -19,6 +19,8 @@ $dimensions_size = 100
 
 $neuron_potential_loss = 0.1
 
+$signal_strength_loss = 0.1
+
 $rand = Random.new(240312) # =)
 
 class Location
@@ -79,10 +81,31 @@ class Neuron
 	attr_reader :location, :axon_location, :potential
 end
 
+# signals
+class Chem
+
+	def initialize(args={})
+		@location = args[:location] || Location.new(nil)
+		@strength = args[:strength] || $rand.rand(100)
+		@size = args[:size] || $rand.rand($dimensions_size/10)
+		@type = args[:type] || 1
+	end
+
+	def tick()
+		@strength = @strength-$signal_strength_loss
+		@strength = 0 if @strength<0
+
+
+	end
+
+end
+
 class Network
 
 	def initialize(size)
+		# TODO make neurons and signals inherit from entity
 		@neurons = []
+		@signals = []
 		size.times{@neurons << Neuron.new}
 	end
 
@@ -99,6 +122,7 @@ puts 'Hello There =)'
 
 network = Network.new(5)
 pp network
+
 
 puts 'Done'
 
