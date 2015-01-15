@@ -24,7 +24,8 @@
 
 
 require 'tactful_tokenizer'
-
+require 'nokogiri'
+require 'open-uri'
 
 puts 'Enter a Word:'
 word = gets.chomp
@@ -34,8 +35,9 @@ puts 'Retrieving Rhymes'
 
 doc = Nokogiri::HTML(open('http://wikirhymer.com/words/'+word))
 
-rhymes = doc.to_s.scan(/<!--\[if lte IE 8\]>(.*?)<!\[endif\]-->/im)
-rhymes.collect!{|x| x.first.strip}
+rhymes = doc.css('span.dropdown').to_a
+rhymes.collect!{|x| x.xpath('text()').text.strip}
+puts rhymes.count
 
 puts 'Retrieving Sentences'
 
@@ -43,7 +45,6 @@ rhyme_sentences = []
 (0..10).each do |i|
 
 	begin
-
 		rhyme_word = rhymes.sample
 		doc = Nokogiri::HTML(open('https://www.google.com/search?q='+URI::encode(rhyme_word)))
 		results = doc.css('h3.r a').collect{|a| a['href'].scan(/url\?q=(.*?)&/).first}
